@@ -1,6 +1,178 @@
 <!DOCTYPE html>
-<html> 
-    <body>
-        Test
-    </body>
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
+	<title>Filter Your Photo</title>
+	<style>
+		body {
+			text-align: center;
+			font-family: 'Roboto Condensed';
+			font-weight: 300;
+		}
+
+		button {
+			font-family: 'Roboto Condensed';
+			font-weight: 300;
+			font-size: 14px;
+			margin: 0px 5px;
+			border: 1px solid #333;
+			outline: none;
+			background: #FFF;
+			border-radius: 3px;
+			cursor: pointer;
+			transition: 0.2s;
+		}
+
+		button:hover {
+			box-shadow: 0 2px 4px 0 rgba(0,0,0,.24);
+		}
+
+		img {
+			max-width: 90%;
+		}
+
+		.reset {
+			background-color: red;
+			color: white;
+		}
+
+		.save {
+			background-color: blue;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		var customFilter = 1;
+		var filter = '';
+		var blur = '';
+		var brightness = '';
+
+		function changeFilter() {
+			let photo = document.getElementById("photo")
+			filter = blur + " " + brightness;
+			photo.style.filter = filter;
+		}
+
+		function getPhoto() {
+			var imgUrl = document.getElementById("imageUrl").value
+			var image = document.createElement("img")
+			image.setAttribute("src", imgUrl)
+			image.setAttribute("id", "photo")
+			var container = document.getElementById("imageContainer")
+			container.appendChild(image)
+		}
+
+		function changeBlur() {
+			let blurVal = document.getElementById("blurSlider").value
+			blur = "blur(" + blurVal + "px)"
+			changeFilter();
+		}
+
+		function changeBrightness() {
+			let brightnessVal = document.getElementById("brightnessSlider").value
+			brightness = "brightness(" + brightnessVal + "%)"
+			changeFilter();
+		}
+
+		function changeContrast() {
+			let photo = document.getElementById("photo")
+			let contrastVal = document.getElementById("contrastSlider").value
+			photo.style.filter = "contrast(" + contrastVal + "%)"
+		}
+
+		function changeGrey() {
+			let photo = document.getElementById("photo")
+			let greyVal = document.getElementById("greySlider").value
+			photo.style.filter = "grayscale(" + greyVal + "%)"
+		}
+
+		function changeHue() {
+			let photo = document.getElementById("photo")
+			let hueVal = document.getElementById("hueSlider").value
+			photo.style.filter = "hue-rotate(" + hueVal + "deg)"
+		}
+
+		function changeInversion() {
+			let photo = document.getElementById("photo")
+			let inversionVal = document.getElementById("inversionSlider").value
+			photo.style.filter = "invert(" + inversionVal + "%)"
+		}
+
+		function changeSepia() {
+			let photo = document.getElementById("photo")
+			let sepiaVal = document.getElementById("sepiaSlider").value
+			photo.style.filter = "sepia(" + sepiaVal + "%)"
+		}
+
+		function filterHudson() {
+			let photo = document.getElementById("photo")
+			photo.style.filter = "contrast(90%) brightness(120%) saturate(110%) hue-rotate(0deg) sepia(0%)"
+		}
+
+		function filterAden() {
+			let photo = document.getElementById("photo")
+			photo.style.filter = "contrast(90%) brightness(120%) saturate(85%) hue-rotate(20deg) sepia (0%)"
+		}
+
+		function filterReyes() {
+			let photo = document.getElementById("photo")
+			photo.style.filter = "contrast(85%) brightness(110%) saturate(75%) hue-rotate(0deg) sepia(22%)"
+		}
+
+		function reset() {
+			let photo = document.getElementById("photo")
+			photo.style.filter = "contrast(100%) brightness(100%) saturate(100%) hue-rotate(0deg) sepia(0%)"
+		}
+
+		function addFilter() {
+			let photo = document.getElementById("photo")
+			photo.style.filter = filter;
+		}
+
+		function saveFilter() {
+			var button = document.createElement("button")
+			var container = document.getElementById("buttonContainer")
+			button.value = filter;
+			button.onclick = function() {
+				filter = button.value;
+				addFilter();
+			}
+			button.innerHTML = 'Custom Filter ' + customFilter.toString();
+			customFilter += 1;
+			container.appendChild(button);
+		}
+
+	</script>
+	<h1>Filter Your Photo</h1>
+	URL of photo: <input type="text" id="imageUrl" value="https://static.pexels.com/photos/268533/pexels-photo-268533.jpeg">
+	<button onclick="getPhoto()">Submit</button>
+	<br><br>
+	Blur: <input id="blurSlider" type="range" min="0" max="10" value="0" oninput="changeBlur()">
+	<br>
+	Brightness: <input id="brightnessSlider" type="range" min="0" max="200" value="100" oninput="changeBrightness()">
+	<br>
+	Contrast: <input id="contrastSlider" type="range" min="0" max="200" value="100" oninput="changeContrast()">
+	<br>
+	Greyscale: <input id="greySlider" type="range" min="0" max="100" value="0" oninput="changeGrey()">
+	<br>
+	Hue Rotation: <input id="hueSlider" type="range" min="0" max="360" value="0" oninput="changeHue()">
+	<br>
+	Inversion: <input id="inversionSlider" type="range" min="0" max="100" value="0" oninput="changeInversion()">
+	<br>
+	Sepia: <input id="sepiaSlider" type="range" min="0" max="100" value="0" oninput="changeSepia()">
+	<br><br>
+	Filters: 
+	<div class="buttonContainer" id="buttonContainer"> 
+		<button onclick="filterHudson()">Hudson</button>
+		<button onclick="filterAden()">Aden</button>
+		<button onclick="filterReyes()">Reyes</button>
+	</div>
+	<br>
+	<button onclick="reset()" class="reset">Reset</button>	
+	<button onclick="saveFilter()" class="save">Save Filter</button>
+	<br><br>
+	<div id="imageContainer"></div>
+</body>
 </html>
