@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <style>
+        .imageContainer img{
+            width: 100px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class = "imageContainer" id = "container"> 
+        <script>
+            for (let i = 1; i < 10; i++) {
+                let img = document.createElement('img');
+                let container = document.getElementById("container");
+                img.setAttribute('src', '/images/India and South Africa/20170218_180837_00' + i.toString() + '.jpg');
+                container.appendChild(img);
+            }
+        </script>
+        </div>
+    </body>
+</html>
