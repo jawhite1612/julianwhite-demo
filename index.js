@@ -10,5 +10,6 @@ express()
   .set('scripts', path.join(__dirname, 'scripts'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/image_test'))
+  .get('/test', (req, res) => res.render('pages/test'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
